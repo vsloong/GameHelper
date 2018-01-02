@@ -30,5 +30,5 @@
 ## 展示Gif在这里
 假期懒得出被窝，在床上录的，简单看下床戏吧  
 
-![image](./imgs/gif2.jpg) 
+![image](./imgs/gif2.gif) 
 
