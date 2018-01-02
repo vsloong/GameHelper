@@ -29,7 +29,7 @@
 ![image](./imgs/img1.jpg)  ![image](./imgs/img2.jpg) 
 
 ## 展示Gif在这里
-假期懒得出被窝，在床上录的，简单看下床戏吧  
-
-![image](./imgs/gif1.gif)  ![image](./imgs/gif2.gif) 
+~~假期懒得出被窝，在床上录的，简单看下床戏吧~~  
+正经的录制来了（速度放满了点，大家可以看清楚怎么操作）
+![image](./imgs/gif3.gif) 
 
