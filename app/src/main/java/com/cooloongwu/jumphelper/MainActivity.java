@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         params.gravity = Gravity.START | Gravity.TOP;
         params.format = PixelFormat.RGBA_8888;
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = dp2px(360);
+        params.height = dp2px(480);
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        params.alpha = 0.5f;
+        params.alpha = 0.8f;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             params.type = WindowManager.LayoutParams.TYPE_TOAST;
         } else {

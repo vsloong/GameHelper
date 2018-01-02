@@ -1,7 +1,8 @@
 # 微信跳一跳助手
 
-元旦假期前看到了大神的文章《python 微信《跳一跳》辅助》（地址在这：https://zhuanlan.zhihu.com/p/32452473），
-看完后我想说很棒，但是感觉这对小白来说貌似有点难了，需要工具python（小白问这是个啥）、Adb（小白问这又是个啥）、Matplot（小白不问了，手动去跳一跳了），哈哈哈。  
+元旦假期前看到了大神的文章《python 微信《跳一跳》辅助》
+（知乎地址在这：https://zhuanlan.zhihu.com/p/32452473  GitHub地址在这：https://github.com/wangshub/wechat_jump_game  ），
+看完后我想说很棒，但是感觉这对小白来说貌似有点难了，需要工具python（小白问这是个啥）、Adb（小白问这又是个啥）、Matplot（小白不问了，手动去跳一跳了），哈哈哈。   
 
 所以我就在想有没有可以直接装在手机上来辅助的App可以做出来呢，对小白用户来说相对也简单点。  
 
@@ -30,5 +31,5 @@
 ## 展示Gif在这里
 假期懒得出被窝，在床上录的，简单看下床戏吧  
 
-![image](./imgs/gif2.gif) 
+![image](./imgs/gif1.gif)  ![image](./imgs/gif2.gif) 
 

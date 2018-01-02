@@ -1,5 +1,7 @@
 package com.cooloongwu.jumphelper;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,10 +21,12 @@ public class Utils {
             if (outputStream == null) {
                 outputStream = Runtime.getRuntime().exec("su").getOutputStream();
             }
+            Log.e("OutputStream", "已实例化");
             outputStream.write((cmd + "\n").getBytes());
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("OutputStream", "打开失败");
         }
     }
 

@@ -3,7 +3,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#30000000"
+    android:background="#10000000"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -39,7 +39,7 @@
             android:id="@+id/btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@mipmap/btn_jump" />
+            android:background="@drawable/selector_btn" />
 
 
     </LinearLayout>
