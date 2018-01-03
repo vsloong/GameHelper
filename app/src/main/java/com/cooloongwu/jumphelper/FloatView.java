@@ -14,17 +14,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
 public class FloatView extends LinearLayout implements View.OnClickListener {
 
     ViewDragHelper dragHelper;
 
     private float x1 = -1, y1 = -1, x2 = -1, y2 = -1;
     private int releasedId1 = -1;
-
-    OutputStream os = null;
 
     public FloatView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,18 +46,16 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
             public void onViewReleased(View releasedChild, float x, float y) {
                 //视图的左上角顶点（releasedChild.getLeft()，releasedChild.getTop()）
                 //第一次触摸的视图就当做是Id1
-                Log.e("onViewReleased", releasedChild.getId() + "释放了");
+                //Log.e("onViewReleased", releasedChild.getId() + "释放了");
                 if (releasedId1 == -1) {
                     releasedId1 = releasedChild.getId();
                 }
                 if (releasedId1 == releasedChild.getId()) {
                     x1 = releasedChild.getLeft();
                     y1 = releasedChild.getTop();
-                    Log.e("x1,y1赋值", "");
                 } else {
                     x2 = releasedChild.getLeft();
                     y2 = releasedChild.getTop();
-                    Log.e("x2,y2赋值", "");
                 }
 
 //                //计算两个左上角顶点的距离
@@ -163,20 +156,7 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         float dis = (float) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
         Log.e("两点间距离", "" + dis);
         int time = (int) Math.round((dis / 0.485));
-        ((TextView) text).setText("耗时约" + time + "ms");
-        exec("input swipe 600 1200 600 1200 " + time + "\n");
-    }
-
-    private void exec(String cmd) {
-        try {
-            if (os == null) {
-                os = Runtime.getRuntime().exec("su").getOutputStream();
-            }
-            os.write(cmd.getBytes());
-            os.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
+        Utils.exec("input swipe 600 1200 600 1200 " + time + "\n");
     }
 }
