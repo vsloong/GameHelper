@@ -2,6 +2,7 @@ package com.cooloongwu.jumphelper;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,16 +64,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_attach:
                 floatView.attach();
+                this.finish();
                 break;
             case R.id.btn_modify:
-                float speed = Float.parseFloat(editSpeed.getText().toString().trim());
-                if (speed > 0) {
-                    floatView.setSpeed(speed);
-                    Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                String str = editSpeed.getText().toString().trim();
+                if (!TextUtils.isEmpty(str)) {
+                    float speed = Float.parseFloat(str);
+                    if (speed > 0) {
+                        floatView.setSpeed(speed);
+                        Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             default:
                 break;
         }
     }
+
+
 }

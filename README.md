@@ -19,8 +19,11 @@
 - 什么？你不知道触摸233ms是多长时间？罢了罢了，交给手机去“自摸”好了
 - 根据上一条，要模拟屏幕触摸事件，那么手机基本需要Root了，Root后应用获取权限，然后执行shell脚本执行自摸搞定         
 
+## TODO
+听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。
+
 ## *App下载地址*
-在apk文件夹下看到了没，有一个jumphelper_alpha_0.1.apk文件，这个就是了。  
+在apk文件夹下看到了没，有一个jumphelper_alpha_0.1.apk文件，这个就是了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.apk)  
 
 ## 使用方法
 注意注意注意，因为上文提到了由于安卓模拟触摸事件是需要root权限的，所以要求手机需要root，但是如果你的手机没有root也可以用另一种办法，就是稍微麻烦些，这里我会将两个方法都写上：
