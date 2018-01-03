@@ -1,26 +1,20 @@
 package com.cooloongwu.jumphelper;
 
-import android.content.Context;
-import android.graphics.PixelFormat;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ezy.assist.compat.SettingsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private WindowManager windowManager;
-    private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-    private float density;
-
     private TextView textMsg;
     private Button btnAttach;
+    private EditText editSpeed;
 
     private FloatView floatView;
 
@@ -29,8 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //获取Root权限
+        Utils.exec("");
         findViews();
-        initWindowManager();
     }
 
     @Override
@@ -43,50 +38,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void findViews() {
         textMsg = findViewById(R.id.text_msg);
+        editSpeed = findViewById(R.id.edit_speed);
         floatView = (FloatView) getLayoutInflater().inflate(R.layout.view_float, null);
+        floatView.initWindowManager();
         btnAttach = findViewById(R.id.btn_attach);
+        Button btnModify = findViewById(R.id.btn_modify);
         btnAttach.setOnClickListener(this);
-    }
-
-    private void initWindowManager() {
-        density = getResources().getDisplayMetrics().density;
-        windowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
-        params.gravity = Gravity.START | Gravity.TOP;
-        params.format = PixelFormat.RGBA_8888;
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = dp2px(480);
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        params.alpha = 0.8f;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            params.type = WindowManager.LayoutParams.TYPE_TOAST;
-        } else {
-            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-        }
-    }
-
-    public void attach() {
-        if (floatView.getParent() == null) {
-            windowManager.addView(floatView, params);
-        }
-    }
-
-    public void detach() {
-        try {
-            windowManager.removeViewImmediate(floatView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private int dp2px(int dp) {
-        return (int) (dp * density);
+        btnModify.setOnClickListener(this);
     }
 
     private boolean checkPermission() {
         if (SettingsCompat.canDrawOverlays(this)) {
             textMsg.setText("悬浮窗权限已获取");
-            //获取Root权限
-            Utils.exec("");
             return true;
         } else {
             textMsg.setText("请在设置中为该应用开启悬浮窗权限");
@@ -99,7 +62,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_attach:
-                attach();
+                floatView.attach();
+                break;
+            case R.id.btn_modify:
+                float speed = Float.parseFloat(editSpeed.getText().toString().trim());
+                if (speed > 0) {
+                    floatView.setSpeed(speed);
+                    Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;

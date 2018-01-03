@@ -6,20 +6,36 @@ package com.cooloongwu.jumphelper;
  */
 
 import android.content.Context;
+import android.graphics.PixelFormat;
+import android.os.Build;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class FloatView extends LinearLayout implements View.OnClickListener {
 
-    ViewDragHelper dragHelper;
+    private ViewDragHelper dragHelper;
+    private WindowManager windowManager;
+    private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+    private float density;
 
     private float x1 = -1, y1 = -1, x2 = -1, y2 = -1;
     private int releasedId1 = -1;
+    private float speed = (float) 0.485;
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
 
     public FloatView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -104,18 +120,23 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
     View dragView;
     View dragView2;
     View text;
-    View button;
+    View editSpeed;
+    View buttonJump;
+    View buttonClose;
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        button = findViewById(R.id.btn);
+        buttonJump = findViewById(R.id.btn_jump);
+        buttonClose = findViewById(R.id.btn_close);
         text = findViewById(R.id.text);
+        editSpeed = findViewById(R.id.edit_speed);
         dragView = findViewById(R.id.dragView1);
         dragView2 = findViewById(R.id.dragView2);
 
-        button.setOnClickListener(this);
+        buttonJump.setOnClickListener(this);
+        buttonClose.setOnClickListener(this);
 
 //        text = new TextView(this.getContext());
 //        ((TextView) text).setText("两点间距离");
@@ -148,15 +169,60 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
 //        this.addView(dragView2);
     }
 
+
     @Override
     public void onClick(View v) {
-        //计算两个左上角顶点的距离
-        if (x1 == -1 || x2 == -1 || y1 == -1 || y2 == -1)
-            return;
-        float dis = (float) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
-        Log.e("两点间距离", "" + dis);
-        int time = (int) Math.round((dis / 0.485));
-        ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
-        Utils.exec("input swipe 600 1200 600 1200 " + time + "\n");
+        switch (v.getId()) {
+            case R.id.btn_jump:
+                //计算两个左上角顶点的距离
+                if (x1 == -1 || x2 == -1 || y1 == -1 || y2 == -1)
+                    return;
+                float dis = (float) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
+                int time = Math.round((dis / getSpeed()));
+                Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
+                ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
+                Utils.exec("input swipe 600 1200 600 1200 " + time + "\n");
+                break;
+            case R.id.btn_close:
+                this.detach();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void attach() {
+        if (this.getParent() == null) {
+            windowManager.addView(this, params);
+        }
+    }
+
+    public void detach() {
+        try {
+            windowManager.removeViewImmediate(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initWindowManager() {
+        density = getResources().getDisplayMetrics().density;
+        windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        params.gravity = Gravity.START | Gravity.TOP;
+        params.format = PixelFormat.RGBA_8888;
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = dp2px(480);
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        params.alpha = 0.8f;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            params.type = WindowManager.LayoutParams.TYPE_TOAST;
+        } else {
+            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        }
+    }
+
+    private int dp2px(int dp) {
+        return (int) (dp * density);
     }
 }
