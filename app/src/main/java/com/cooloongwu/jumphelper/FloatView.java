@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -24,6 +25,9 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
     private WindowManager windowManager;
     private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
     private float density;
+    private int width;
+    private int height;
+    private final int blank = 100;//底部预留100dp空隙来模拟触屏操作
 
     private float x1 = -1, y1 = -1, x2 = -1, y2 = -1;
     private int releasedId1 = -1;
@@ -181,7 +185,10 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
                 int time = Math.round((dis / getSpeed()));
                 Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
                 ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
-                Utils.exec("input swipe 600 1200 600 1200 " + time + "\n");
+
+                int touchY = (int) (height - (blank * density) / 2);
+                Log.e("触摸Y坐标", "" + touchY);
+                Utils.exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time + "\n");
                 break;
             case R.id.btn_close:
                 this.detach();
@@ -207,12 +214,18 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
     }
 
     public void initWindowManager() {
-        density = getResources().getDisplayMetrics().density;
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
+        density = displayMetrics.density;
+
+        Log.e("屏幕宽高：", "宽：" + width + "；高：" + height + "；密度：" + density);
         windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+
         params.gravity = Gravity.START | Gravity.TOP;
         params.format = PixelFormat.RGBA_8888;
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = dp2px(480);
+        params.width = width;
+        params.height = (int) (height - blank * density);
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         params.alpha = 0.8f;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -222,7 +235,4 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    private int dp2px(int dp) {
-        return (int) (dp * density);
-    }
 }

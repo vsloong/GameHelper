@@ -23,7 +23,7 @@
 听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。
 
 ## *App下载地址*
-在apk文件夹下看到了没，有一个jumphelper_alpha_0.1.apk文件，这个就是了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.apk)  
+在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.2.apk)  
 
 ## 使用方法
 注意注意注意，因为上文提到了由于安卓模拟触摸事件是需要root权限的，所以要求手机需要root，但是如果你的手机没有root也可以用另一种办法，就是稍微麻烦些，这里我会将两个方法都写上：
@@ -63,4 +63,4 @@
 ## 展示Gif在这里
 ~~假期懒得出被窝，在床上录的，简单看下床戏吧~~  
 正经的录制来了
-![image](https://user-gold-cdn.xitu.io/2018/1/2/160b61f71d476b32?w=720&h=1280&f=gif&s=6041599) 
+![image](/imgs/gif3.gif) 
