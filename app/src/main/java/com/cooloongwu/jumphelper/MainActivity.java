@@ -1,8 +1,10 @@
 package com.cooloongwu.jumphelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //获取Root权限
-        Utils.exec("");
+        OSUtils.getInstance();
         findViews();
     }
 
@@ -40,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViews() {
-//        floatView = new FloatView(this);
         floatView = (FloatView) getLayoutInflater().inflate(R.layout.view_float, null);
 
         textMsg = findViewById(R.id.text_msg);
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_attach:
                 floatView.initWindowManager();
                 floatView.attach();
-                //this.finish();//这里finish掉不知会不会有什么影响
+                goHome();
                 break;
             case R.id.btn_modify:
                 String str = editSpeed.getText().toString().trim();
@@ -85,5 +86,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OSUtils.getInstance().close();
+    }
 
+    /**
+     * 监听返回按键【当点击返回键时执行Home键效果】
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            goHome();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void goHome() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
 }

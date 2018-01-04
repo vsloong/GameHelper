@@ -23,7 +23,7 @@
 听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。
 
 ## *App下载地址*
-在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.2.apk)  
+在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.3.apk)  
 
 ## 使用方法
 注意注意注意，因为上文提到了由于安卓模拟触摸事件是需要root权限的，所以要求手机需要root，但是如果你的手机没有root也可以用另一种办法，就是稍微麻烦些，这里我会将两个方法都写上：
@@ -41,7 +41,8 @@
 ![这里写图片描述](http://img.blog.csdn.net/20180103103027814?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDk3NjIxMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 2. 配置环境变量，将D:\adb这个路径添加到电脑的环境变量中去，win7下在计算机上右键=>属性=>高级系统设置=>环境变量=>在系统变量中找到path然后选中点击编辑在最后面添加   ;D:\adb  即可（别少了英文的分号）。Win10下右键开始菜单=>系统=>高级系统设置=>环境变量=>在系统变量中找到path然后选中点击编辑然后新建填入   D:\adb 即可（这个就没分号了）。具体还不懂的话请百度“设置环境变量”好了。
 3. 配置完后用数据线连接手机（看到这里后继续看第4条，如果有错误你在回来继续看），如果你电脑上有什么xx手机管家类的那么基本你的电脑就有手机驱动了，如果没有的话可以去 [这里](http://adbshell.com/downloads)下载ADB Driver Installer，然后安装手机的驱动。
-4. 按下Win+R键在弹出的运行框中输入cmd，如下图，回车后即可看到命令行黑窗口，在黑窗口中输入adb shell 按下回车键（可能需要等一段时间），然后观察手机如果弹框出现是否允许电脑调试手机对话框请点击允许调试，然后黑窗口中如果出现类似下图的字符串就证明连接手机成功，可以控制手机了：
+4. 按下Win+R键在弹出的运行框中输入cmd，如下图，回车后即可看到命令行黑窗口，在黑窗口中输入adb shell 按下回车键（可能需要等一段时间），然后观察手机如果弹框出现是否允许电脑调试手机对话框请点击允许调试，然后黑窗口中如果出现类似下图的字符串就证明连接手机成功，可以控制手机了：  
+
 ![这里写图片描述](http://img.blog.csdn.net/20180103104511624?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDk3NjIxMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)  ![这里写图片描述](http://img.blog.csdn.net/20180103105123286?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDk3NjIxMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 然后你可以直接测试下，输入 input swipe 0 500 360 500 1000 然后回车，这句话的意思就是模拟从屏幕坐标的（0，500）滑动到（360，500）处，最后一个1000是时间就是1秒，也就是我们平常的左滑屏幕了，看看是不是屏幕滑动了下。
 5. 如果你输入adb shell后却出现 device not found类的提示，先检查手机是否连接好电脑，确认连接没问题在去上面3那里去下载驱动吧。
@@ -62,5 +63,6 @@
 
 ## 展示Gif在这里
 ~~假期懒得出被窝，在床上录的，简单看下床戏吧~~  
-正经的录制来了
+正经的录制来了  
+
 ![image](/imgs/gif3.gif) 

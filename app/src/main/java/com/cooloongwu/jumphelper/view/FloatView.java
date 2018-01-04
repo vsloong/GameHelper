@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cooloongwu.jumphelper.R;
-import com.cooloongwu.jumphelper.Utils;
+import com.cooloongwu.jumphelper.OSUtils;
 
 public class FloatView extends LinearLayout implements View.OnClickListener {
 
@@ -54,6 +54,7 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         initDragHelper();
         //这里执行完后会去执行 onFinishInflate()
     }
+
 
     private void initDragHelper() {
         setOrientation(VERTICAL);
@@ -181,7 +182,7 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
 
                 int touchY = (int) (height * 0.9);
                 Log.e("触摸Y坐标", "" + touchY);
-                Utils.exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time + "\n");
+                OSUtils.getInstance().exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time + "\n");
                 break;
             case R.id.btn_close:
                 this.detach();
@@ -189,7 +190,6 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
             default:
                 break;
         }
-
     }
 
     public void attach() {
