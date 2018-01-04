@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooloongwu.jumphelper.view.FloatView;
+
 import ezy.assist.compat.SettingsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -38,10 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViews() {
+//        floatView = new FloatView(this);
+        floatView = (FloatView) getLayoutInflater().inflate(R.layout.view_float, null);
+
         textMsg = findViewById(R.id.text_msg);
         editSpeed = findViewById(R.id.edit_speed);
-        floatView = (FloatView) getLayoutInflater().inflate(R.layout.view_float, null);
-        floatView.initWindowManager();
         btnAttach = findViewById(R.id.btn_attach);
         Button btnModify = findViewById(R.id.btn_modify);
         btnAttach.setOnClickListener(this);
@@ -63,8 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_attach:
+                floatView.initWindowManager();
                 floatView.attach();
-                this.finish();
+                //this.finish();//这里finish掉不知会不会有什么影响
                 break;
             case R.id.btn_modify:
                 String str = editSpeed.getText().toString().trim();

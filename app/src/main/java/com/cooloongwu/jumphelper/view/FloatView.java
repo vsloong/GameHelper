@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper;
+package com.cooloongwu.jumphelper.view;
 
 /**
  * 悬浮窗视图
@@ -19,15 +19,19 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cooloongwu.jumphelper.R;
+import com.cooloongwu.jumphelper.Utils;
+
 public class FloatView extends LinearLayout implements View.OnClickListener {
+
+    private View dragView;
+    private View dragView2;
+    private View text;
 
     private ViewDragHelper dragHelper;
     private WindowManager windowManager;
     private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-    private float density;
-    private int width;
     private int height;
-    private final int blank = 100;//底部预留100dp空隙来模拟触屏操作
 
     private float x1 = -1, y1 = -1, x2 = -1, y2 = -1;
     private int releasedId1 = -1;
@@ -41,10 +45,18 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         this.speed = speed;
     }
 
+    public FloatView(Context context) {
+        super(context, null);
+    }
+
     public FloatView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(VERTICAL);
+        initDragHelper();
+        //这里执行完后会去执行 onFinishInflate()
+    }
 
+    private void initDragHelper() {
+        setOrientation(VERTICAL);
         dragHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
             @Override
             public boolean tryCaptureView(View child, int pointerId) {
@@ -77,18 +89,6 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
                     x2 = releasedChild.getLeft();
                     y2 = releasedChild.getTop();
                 }
-
-//                //计算两个左上角顶点的距离
-//                if (x1 == -1 || x2 == -1 || y1 == -1 || y2 == -1)
-//                    return;
-//                float dis = (float) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
-//                Log.e("两点间距离", "" + dis);
-//                ((TextView) text).setText("两点间距离：" + dis);
-            }
-
-            @Override
-            public void onEdgeDragStarted(int edgeFlags, int pointerId) {
-//                dragHelper.captureChildView(edgeDragView, pointerId);
             }
 
             @Override
@@ -121,21 +121,14 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    View dragView;
-    View dragView2;
-    View text;
-    View editSpeed;
-    View buttonJump;
-    View buttonClose;
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        buttonJump = findViewById(R.id.btn_jump);
-        buttonClose = findViewById(R.id.btn_close);
+        View buttonJump = findViewById(R.id.btn_jump);
+        View buttonClose = findViewById(R.id.btn_close);
         text = findViewById(R.id.text);
-        editSpeed = findViewById(R.id.edit_speed);
         dragView = findViewById(R.id.dragView1);
         dragView2 = findViewById(R.id.dragView2);
 
@@ -186,7 +179,7 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
                 Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
                 ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
 
-                int touchY = (int) (height - (blank * density) / 2);
+                int touchY = (int) (height * 0.9);
                 Log.e("触摸Y坐标", "" + touchY);
                 Utils.exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time + "\n");
                 break;
@@ -215,9 +208,9 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
 
     public void initWindowManager() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        width = displayMetrics.widthPixels;
+        int width = displayMetrics.widthPixels;
         height = displayMetrics.heightPixels;
-        density = displayMetrics.density;
+        float density = displayMetrics.density;
 
         Log.e("屏幕宽高：", "宽：" + width + "；高：" + height + "；密度：" + density);
         windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -225,7 +218,7 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         params.gravity = Gravity.START | Gravity.TOP;
         params.format = PixelFormat.RGBA_8888;
         params.width = width;
-        params.height = (int) (height - blank * density);
+        params.height = (int) (height * 0.8);
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         params.alpha = 0.8f;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
