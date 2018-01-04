@@ -1,11 +1,13 @@
 package com.cooloongwu.jumphelper.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,7 +34,10 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
     private WindowManager windowManager;
     private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
     private int height;
-    private float speed = (float) 0.485;
+    private float speed = (float) 0.485f;
+    private boolean isStop = false;
+
+    private View btnAuto;
 
     public AutoFloatView(Context context) {
         super(context);
@@ -45,22 +50,21 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
-        View btnClose = findViewById(R.id.btn_close);
-        View btnAuto = findViewById(R.id.btn_auto);
-
-        btnClose.setOnClickListener(this);
+        btnAuto = findViewById(R.id.btn_auto);
         btnAuto.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_close:
-                detach();
-                break;
             case R.id.btn_auto:
-                new FindAndJump().execute();
+                if (isStop) {
+                    detach();
+                } else {
+                    btnAuto.setBackground(ContextCompat.getDrawable(this.getContext(), R.mipmap.btn_stop));
+                    isStop = true;
+                    new FindAndJump().execute();
+                }
                 break;
             default:
                 break;
@@ -84,6 +88,8 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
     public void detach() {
         try {
             windowManager.removeViewImmediate(this);
+            //关闭悬浮窗时强制退出App，为了结束自动跳的脚本
+            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,12 +133,12 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         return null;
     }
 
+    @SuppressLint("StaticFieldLeak")
     class FindAndJump extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... voids) {
             //获取到图片
             OSUtils.getInstance().exec(Config.CMD_SCREEN_SHOT);
-
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -144,10 +150,29 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
                 int[] currentPos = CurrPosFinder.getCurrentPos(bitmap);
                 int[] excepted = {currentPos[0] - 35, currentPos[0] + 35};
                 int[] nextPos = NextPosFinder.getNextPos(bitmap, excepted, currentPos[1]);
+                if (nextPos == null || nextPos[0] == 0) {
+                    System.err.println("find nextCenter, fail");
+                } else {
+                    int centerX, centerY;
+                    int[] whitePoint = NextPosFinder.find(bitmap, nextPos[0] - 120, nextPos[1], nextPos[0] + 120, nextPos[1] + 180);
+                    if (whitePoint != null) {
+                        centerX = whitePoint[0];
+                        centerY = whitePoint[1];
+                        System.out.println("find whitePoint, succ, (" + centerX + ", " + centerY + ")");
+                    } else {
+                        if (nextPos[2] != Integer.MAX_VALUE && nextPos[4] != Integer.MIN_VALUE) {
+                            centerX = (nextPos[2] + nextPos[4]) / 2;
+                            centerY = (nextPos[3] + nextPos[5]) / 2;
+                        } else {
+                            centerX = nextPos[0];
+                            centerY = nextPos[1] + 48;
+                        }
+                    }
+                    int dis = (int) Math.sqrt((centerX - currentPos[0]) * (centerX - currentPos[0]) + (centerY - currentPos[1]) * (centerY - currentPos[1]));
+                    time = (int) (dis / getSpeed());
+                    Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
 
-                float dis = (float) Math.sqrt(Math.pow((currentPos[0] - nextPos[0]), 2) + Math.pow(currentPos[1] - nextPos[1], 2));
-                time = Math.round((dis / getSpeed()));
-                Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
+                }
             }
             return time;
         }
@@ -156,7 +181,12 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         protected void onPostExecute(Integer time) {
             //查找到位置后开始跳
             OSUtils.getInstance().exec(Config.CMD_TOUCH_LONG.replaceAll("touchY", "200").replace("time", String.valueOf(time)));
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            new FindAndJump().execute();
         }
     }
-
 }

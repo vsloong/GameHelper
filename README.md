@@ -19,8 +19,13 @@
 - 什么？你不知道触摸233ms是多长时间？罢了罢了，交给手机去“自摸”好了
 - 根据上一条，要模拟屏幕触摸事件，那么手机基本需要Root了，Root后应用获取权限，然后执行shell脚本执行自摸搞定         
 
+# 震惊，竟然，这种事，惊呆了
+**该app支持“手动选位置”以及“自动寻找位置”去跳！**（下面示例图中可以看到两个的区别，视频明天会录制）   
+注意注意：自动寻找位置的算法拷贝自[burningcl/wechat_jump_hack](https://github.com/burningcl/wechat_jump_hack)，省去了我很大的时间（其实就是我懒），感谢感谢感谢！
+
 ## TODO
-听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。
+~~听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。~~  
+接下来就是不断的优化，适配了
 
 ## *App下载地址*
 在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.3.apk)  
@@ -51,15 +56,16 @@
 ## GitHub
 代码已上传到GitHub，[CooLoongWu/JumpHelper](https://github.com/CooLoongWu/JumpHelper)，由于只是一个初步的代码，还没有做各种适配，所以这里先不讲解代码了，思路都在上面提到了。等到适配工作基本稳定后在优化代码并分析。
 
-## 悬浮窗权限
-做的时候就感觉悬浮窗可能是个坑，需要适配，所以索性GitHub上找了一个悬浮窗库，感谢作者大大@czy1121
-[czy1121/settingscompat](https://github.com/czy1121/settingscompat)
+## 感谢清单
+1.[czy1121/settingscompat](https://github.com/czy1121/settingscompat)  
+做的时候就感觉悬浮窗可能是个坑，需要适配，所以索性GitHub上找了一个悬浮窗库，感谢作者大大@czy1121  
+
+2.[burningcl/wechat_jump_hack](https://github.com/burningcl/wechat_jump_hack)  
+Java版的自动寻找位置的算法，省去了我很大一部分时间，修修改改就直接拿来用了，非常感谢！！！！！  
 
 ## 展示图片在这里
-刷的不高吧，大神说刷高了可能没朋友  
-
-![这里写图片描述](https://user-gold-cdn.xitu.io/2018/1/2/160b5d0b815cd6ca?w=266&h=473&f=jpeg&s=61694)
-![这里写图片描述](https://user-gold-cdn.xitu.io/2018/1/2/160b5d0b805947ad?w=266&h=473&f=jpeg&s=64830)  
+刷的不高吧，大神说刷高了可能没朋友【前两张是手动跳的，后面一张是自动跳的】  
+![这里写图片描述](/imgs/img1.jpg) ![这里写图片描述](/imgs/img2.jpg) ![这里写图片描述](/imgs/img3.jpg)  
 
 ## 展示Gif在这里
 ~~假期懒得出被窝，在床上录的，简单看下床戏吧~~  

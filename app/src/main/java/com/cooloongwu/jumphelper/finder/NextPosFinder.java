@@ -148,7 +148,7 @@ public class NextPosFinder {
         return ret;
     }
 
-    public int[] find(Bitmap image, int x1, int y1, int x2, int y2) {
+    public static int[] find(Bitmap image, int x1, int y1, int x2, int y2) {
         if (image == null) {
             return null;
         }
