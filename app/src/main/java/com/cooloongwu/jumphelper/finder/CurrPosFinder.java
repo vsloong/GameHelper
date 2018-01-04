@@ -17,7 +17,7 @@ public class CurrPosFinder {
 
     private static final int B_TARGET = 86;
 
-    public int[] find(Bitmap image) {
+    public static int[] getCurrentPos(Bitmap image) {
         if (image == null) {
             return null;
         }
@@ -53,7 +53,7 @@ public class CurrPosFinder {
         }
         ret[0] = (maxX + minX) / 2 + 3;
         ret[1] = maxY;
-        Log.e("查找", "当前位置：x：" + ret[0] + "；y：" + ret[1]);
+        Log.e("查找位置", "当前位置：x：" + ret[0] + "；y：" + ret[1]);
         return ret;
     }
 

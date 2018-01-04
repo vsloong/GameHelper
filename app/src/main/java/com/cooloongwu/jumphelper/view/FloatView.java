@@ -7,7 +7,6 @@ package com.cooloongwu.jumphelper.view;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
-import android.os.Build;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -20,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cooloongwu.jumphelper.R;
-import com.cooloongwu.jumphelper.OSUtils;
+import com.cooloongwu.jumphelper.utils.OSUtils;
 
 public class FloatView extends LinearLayout implements View.OnClickListener {
 
@@ -182,7 +181,7 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
 
                 int touchY = (int) (height * 0.9);
                 Log.e("触摸Y坐标", "" + touchY);
-                OSUtils.getInstance().exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time + "\n");
+                OSUtils.getInstance().exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time);
                 break;
             case R.id.btn_close:
                 this.detach();
@@ -221,11 +220,12 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         params.height = (int) (height * 0.8);
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         params.alpha = 0.8f;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            params.type = WindowManager.LayoutParams.TYPE_TOAST;
-        } else {
-            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-        }
+        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            params.type = WindowManager.LayoutParams.TYPE_TOAST;
+//        } else {
+//            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+//        }
     }
 
 }

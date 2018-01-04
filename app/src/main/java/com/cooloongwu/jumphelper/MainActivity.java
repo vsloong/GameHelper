@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooloongwu.jumphelper.utils.OSUtils;
+import com.cooloongwu.jumphelper.view.AutoFloatView;
 import com.cooloongwu.jumphelper.view.FloatView;
 
 import ezy.assist.compat.SettingsCompat;
@@ -22,13 +24,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editSpeed;
 
     private FloatView floatView;
+    private AutoFloatView autoFloatView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //获取Root权限
+        //获取Root权限，提前获取下否者执行的时候在获取会有3秒多的延迟
         OSUtils.getInstance();
         findViews();
     }
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void findViews() {
         floatView = (FloatView) getLayoutInflater().inflate(R.layout.view_float, null);
+        autoFloatView = (AutoFloatView) getLayoutInflater().inflate(R.layout.view_float_auto, null);
 
         textMsg = findViewById(R.id.text_msg);
         editSpeed = findViewById(R.id.edit_speed);
@@ -67,8 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_attach:
-                floatView.initWindowManager();
-                floatView.attach();
+//                floatView.initWindowManager();
+//                floatView.attach();
+                autoFloatView.initWindowManager();
+                autoFloatView.attach();
                 goHome();
                 break;
             case R.id.btn_modify:

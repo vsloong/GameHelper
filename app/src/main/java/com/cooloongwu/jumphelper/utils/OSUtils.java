@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper;
+package com.cooloongwu.jumphelper.utils;
 
 import android.util.Log;
 
@@ -29,6 +29,10 @@ public class OSUtils {
     }
 
     private OSUtils() {
+        initOS();
+    }
+
+    private void initOS() {
         if (outputStream == null) {
             try {
                 outputStream = Runtime.getRuntime().exec("su").getOutputStream();
@@ -41,6 +45,7 @@ public class OSUtils {
 
     public void exec(String cmd) {
         try {
+            initOS();
             outputStream.write((cmd + "\n").getBytes());
             outputStream.flush();
             Log.e("OutputStream", "执行命令成功");
@@ -50,7 +55,7 @@ public class OSUtils {
         }
     }
 
-    void close() {
+    public void close() {
         try {
             if (outputStream != null)
                 outputStream.close();

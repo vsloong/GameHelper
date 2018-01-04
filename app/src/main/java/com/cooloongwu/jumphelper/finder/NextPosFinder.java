@@ -1,6 +1,7 @@
 package com.cooloongwu.jumphelper.finder;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class NextPosFinder {
 
     private static final int TARGET = 245;
 
-    public int[] find(Bitmap image, int[] exceptedX, int maxY) {
+    public static int[] getNextPos(Bitmap image, int[] exceptedX, int maxY) {
         if (image == null) {
             return null;
         }
@@ -143,6 +144,7 @@ public class NextPosFinder {
                 queue.add(buildArray(i, j + 1));
             }
         }
+        Log.e("查找位置", "下一步位置：x：" + ret[0] + "；y：" + ret[1]);
         return ret;
     }
 
