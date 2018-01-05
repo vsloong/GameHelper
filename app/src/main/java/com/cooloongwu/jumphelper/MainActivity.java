@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAttach.setVisibility(
                 checkPermission() ? View.VISIBLE : View.GONE
         );
+
+//        MyApplication  application = (MyApplication) getApplication();
     }
 
     private void findViews() {
