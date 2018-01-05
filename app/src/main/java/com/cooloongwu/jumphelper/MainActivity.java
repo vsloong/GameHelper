@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //获取Root权限，提前获取下否者执行的时候在获取会有3秒多的延迟
-        OSUtils.getInstance();
+
         findViews();
     }
 
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OSUtils.getInstance().close();
+        OSUtils.getInstance().closeAndDestroy();
     }
 
     /**

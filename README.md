@@ -26,7 +26,7 @@
 注意注意：自动寻找位置的算法拷贝自[burningcl/wechat_jump_hack](https://github.com/burningcl/wechat_jump_hack)，省去了我很大的时间（其实就是我懒），感谢感谢感谢！
 
 # *App下载地址*
-在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载（0.2.1）](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.2.1.apk)  
+在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载（0.2.1）](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.2.2.apk)  
 
 
 ## 使用方法

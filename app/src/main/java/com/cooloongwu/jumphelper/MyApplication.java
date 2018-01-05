@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.cooloongwu.jumphelper.utils.OSUtils;
 import com.cooloongwu.jumphelper.view.ManualFloatView;
 
 /**
@@ -41,6 +42,9 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
 
+        //获取Root权限，提前获取下否者执行的时候在获取会有3秒多的延迟
+        OSUtils.getInstance();
+
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         setScreenHeight(displayMetrics.heightPixels);
         setScreenWidth(displayMetrics.widthPixels);
@@ -48,6 +52,12 @@ public class MyApplication extends Application {
         Log.e("屏幕分辨率", getScreenWidth() + " * " + getScreenHeight());
 
         initWindowManager();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        OSUtils.getInstance().closeAndDestroy();
     }
 
     /**

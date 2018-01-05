@@ -108,12 +108,13 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         protected Integer doInBackground(Void... voids) {
             //获取到图片
             OSUtils.getInstance().exec(Config.CMD_SCREEN_SHOT);
+            //这里需要优化，Process.wait()
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1111);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            int time = 10;//默认很小的时间
+            int time = 1;//默认很小的时间
             Bitmap bitmap = getBitmap();
             if (bitmap != null) {
                 int[] currentPos = CurrPosFinder.getCurrentPos(bitmap);
@@ -152,7 +153,8 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
             if (isJumping) {
                 OSUtils.getInstance().exec(Config.CMD_TOUCH_LONG.replaceAll("touchY", "200").replace("time", String.valueOf(time)));
                 try {
-                    Thread.sleep(time * 4);
+                    //sleep 跳跃所用时间的5倍 应该够了吧，这样就微信就不会检测到固定时间了
+                    Thread.sleep(time * 5 > 3333 ? (time * 5) : 3333);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
