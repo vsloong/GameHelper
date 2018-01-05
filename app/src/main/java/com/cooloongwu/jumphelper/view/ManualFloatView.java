@@ -1,18 +1,14 @@
 package com.cooloongwu.jumphelper.view;
 
 import android.content.Context;
-import android.graphics.PixelFormat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cooloongwu.jumphelper.MyApplication;
 import com.cooloongwu.jumphelper.R;
 import com.cooloongwu.jumphelper.utils.OSUtils;
 
@@ -27,21 +23,9 @@ public class ManualFloatView extends LinearLayout implements View.OnClickListene
     private View text;
 
     private ViewDragHelper dragHelper;
-    private WindowManager windowManager;
-    private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-    private int height;
 
     private float x1 = -1, y1 = -1, x2 = -1, y2 = -1;
     private int releasedId1 = -1;
-    private float speed = (float) 0.485;
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
 
     public ManualFloatView(Context context) {
         super(context, null);
@@ -52,7 +36,6 @@ public class ManualFloatView extends LinearLayout implements View.OnClickListene
         initDragHelper();
         //这里执行完后会去执行 onFinishInflate()
     }
-
 
     private void initDragHelper() {
         setOrientation(VERTICAL);
@@ -173,58 +156,28 @@ public class ManualFloatView extends LinearLayout implements View.OnClickListene
                 //计算两个左上角顶点的距离
                 if (x1 == -1 || x2 == -1 || y1 == -1 || y2 == -1)
                     return;
-                float dis = (float) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
-                int time = Math.round((dis / getSpeed()));
-                Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
+                double dis = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
+                int time = (int) Math.round((dis / MyApplication.getInstance().getSpeed()));
                 ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
-
-                int touchY = (int) (height * 0.9);
-                Log.e("触摸Y坐标", "" + touchY);
+                int touchY = (int) (MyApplication.getInstance().getScreenHeight() * 0.9);
                 OSUtils.getInstance().exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time);
                 break;
             case R.id.btn_close:
-                this.detach();
+                detach();
                 break;
             default:
                 break;
         }
     }
 
-    public void attach() {
-        if (this.getParent() == null) {
-            windowManager.addView(this, params);
-        }
-    }
-
+    /**
+     * 关闭悬浮窗
+     */
     public void detach() {
         try {
-            windowManager.removeViewImmediate(this);
+            MyApplication.getInstance().detach(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    public void initWindowManager() {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        height = displayMetrics.heightPixels;
-        float density = displayMetrics.density;
-
-        Log.e("屏幕宽高：", "宽：" + width + "；高：" + height + "；密度：" + density);
-        windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-
-        params.gravity = Gravity.START | Gravity.TOP;
-        params.format = PixelFormat.RGBA_8888;
-        params.width = width;
-        params.height = (int) (height * 0.8);
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        params.alpha = 0.8f;
-        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            params.type = WindowManager.LayoutParams.TYPE_TOAST;
-//        } else {
-//            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-//        }
-    }
-
 }

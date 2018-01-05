@@ -4,18 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PixelFormat;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.cooloongwu.jumphelper.MyApplication;
 import com.cooloongwu.jumphelper.R;
 import com.cooloongwu.jumphelper.finder.CurrPosFinder;
 import com.cooloongwu.jumphelper.finder.NextPosFinder;
@@ -31,12 +28,7 @@ import java.io.File;
 
 public class AutoFloatView extends LinearLayout implements View.OnClickListener {
 
-    private WindowManager windowManager;
-    private WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-    private int height;
-    private float speed = (float) 0.485f;
     private boolean isStop = false;
-
     private View btnAuto;
 
     public AutoFloatView(Context context) {
@@ -71,51 +63,14 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         }
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public void attach() {
-        if (this.getParent() == null) {
-            windowManager.addView(this, params);
-        }
-    }
-
     public void detach() {
         try {
-            windowManager.removeViewImmediate(this);
+            MyApplication.getInstance().detach(this);
             //关闭悬浮窗时强制退出App，为了结束自动跳的脚本
             System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void initWindowManager() {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        height = displayMetrics.heightPixels;
-        float density = displayMetrics.density;
-
-        Log.e("屏幕宽高：", "宽：" + width + "；高：" + height + "；密度：" + density);
-        windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-
-        params.gravity = Gravity.END | Gravity.BOTTOM;
-        params.format = PixelFormat.RGBA_8888;
-        params.width = LayoutParams.WRAP_CONTENT;
-        params.height = LayoutParams.WRAP_CONTENT;
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        params.alpha = 0.8f;
-        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            params.type = WindowManager.LayoutParams.TYPE_TOAST;
-//        } else {
-//            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-//        }
     }
 
     private Bitmap getBitmap() {
@@ -168,9 +123,9 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
                             centerY = nextPos[1] + 48;
                         }
                     }
-                    int dis = (int) Math.sqrt((centerX - currentPos[0]) * (centerX - currentPos[0]) + (centerY - currentPos[1]) * (centerY - currentPos[1]));
-                    time = (int) (dis / getSpeed());
-                    Log.e("计算结果", "距离：" + dis + "；速度：" + getSpeed() + "；时间：" + time);
+                    double dis = Math.sqrt((centerX - currentPos[0]) * (centerX - currentPos[0]) + (centerY - currentPos[1]) * (centerY - currentPos[1]));
+                    time = (int) (dis / MyApplication.getInstance().getSpeed());
+                    Log.e("计算结果", "距离：" + dis + "；时间：" + time);
 
                 }
             }

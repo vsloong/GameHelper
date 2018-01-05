@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAttach.setVisibility(
                 checkPermission() ? View.VISIBLE : View.GONE
         );
-
-//        MyApplication  application = (MyApplication) getApplication();
     }
 
     private void findViews() {
@@ -85,20 +83,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radio_auto) {
-                    autoFloatView.initWindowManager();
-                    autoFloatView.attach();
+                    MyApplication.getInstance().attach(autoFloatView);
                 } else {
-                    manualFloatView.initWindowManager();
-                    manualFloatView.attach();
+                    MyApplication.getInstance().attach(manualFloatView);
                 }
                 goHome();
                 break;
             case R.id.btn_modify:
                 String str = editSpeed.getText().toString().trim();
                 if (!TextUtils.isEmpty(str)) {
-                    float speed = Float.parseFloat(str);
+                    double speed = Double.parseDouble(str);
                     if (speed > 0) {
-                        //manualFloatView.setSpeed(speed);
+                        MyApplication.getInstance().setSpeed(speed);
                         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                     }
                 }
