@@ -15,5 +15,5 @@ public class Config {
     public static String IMG_NAME = "jumphelper.png";
 
     public static String CMD_SCREEN_SHOT = "screencap -p /sdcard/" + IMG_NAME;
-    public static String CMD_TOUCH_LONG = "input swipe 200 touchY 300 touchY time";
+    public static String CMD_TOUCH_LONG = "input swipe 100 touchY 300 touchY time";
 }

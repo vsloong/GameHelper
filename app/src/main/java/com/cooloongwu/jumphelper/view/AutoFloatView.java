@@ -128,7 +128,6 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
                         centerX = whitePoint[0];
                         centerY = whitePoint[1];
                         Log.e("查找白色中心点", "成功：（" + centerX + ", " + centerY + "）");
-                        System.out.println("find whitePoint, succ, (" + centerX + ", " + centerY + ")");
                     } else {
                         if (nextPos[2] != Integer.MAX_VALUE && nextPos[4] != Integer.MIN_VALUE) {
                             centerX = (nextPos[2] + nextPos[4]) / 2;
@@ -150,15 +149,15 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         @Override
         protected void onPostExecute(Integer time) {
             //查找到位置后开始跳
-            OSUtils.getInstance().exec(Config.CMD_TOUCH_LONG.replaceAll("touchY", "200").replace("time", String.valueOf(time)));
-            try {
-                Thread.sleep(time * 4);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (isJumping)
+            if (isJumping) {
+                OSUtils.getInstance().exec(Config.CMD_TOUCH_LONG.replaceAll("touchY", "200").replace("time", String.valueOf(time)));
+                try {
+                    Thread.sleep(time * 4);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 new FindAndJump().execute();
+            }
         }
     }
 }
