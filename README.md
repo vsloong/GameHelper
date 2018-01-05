@@ -23,12 +23,9 @@
 **该app支持“手动选位置”以及“自动寻找位置”去跳！**（下面示例图中可以看到两个的区别，视频明天会录制）   
 注意注意：自动寻找位置的算法拷贝自[burningcl/wechat_jump_hack](https://github.com/burningcl/wechat_jump_hack)，省去了我很大的时间（其实就是我懒），感谢感谢感谢！
 
-## TODO
-~~听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。~~  
-接下来就是不断的优化，适配了
+# *App下载地址*
+在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载（0.2.1）](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.2.1.apk)  
 
-## *App下载地址*
-在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。[或者直接点这里下载](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.1.3.apk)  
 
 ## 使用方法
 注意注意注意，因为上文提到了由于安卓模拟触摸事件是需要root权限的，所以要求手机需要root，但是如果你的手机没有root也可以用另一种办法，就是稍微麻烦些，这里我会将两个方法都写上：
@@ -52,6 +49,10 @@
 然后你可以直接测试下，输入 input swipe 0 500 360 500 1000 然后回车，这句话的意思就是模拟从屏幕坐标的（0，500）滑动到（360，500）处，最后一个1000是时间就是1秒，也就是我们平常的左滑屏幕了，看看是不是屏幕滑动了下。
 5. 如果你输入adb shell后却出现 device not found类的提示，先检查手机是否连接好电脑，确认连接没问题在去上面3那里去下载驱动吧。
 6. 到这里的话你应该已经知道怎么用了吧，手机上安装app打开悬浮窗后，选择跳一跳中小人当前位置以及下一个要跳的位置，然后点击了跳之后你就可以得到一个时间t，拿到这个时间后在4中出现的黑窗口中输入input swipe 500 1200 500 1200 t（拿到的时间），坐标（500 1200）你可以自己按需要调整，只要不是被悬浮窗覆盖的区域就行。
+
+## TODO
+~~听说你们还想让他自动跳的？这么贪得无厌的？行，明天就来【你明天看还这里写的还是“明天”】。~~  
+接下来就是不断的优化，适配了
 
 ## GitHub
 代码已上传到GitHub，[CooLoongWu/JumpHelper](https://github.com/CooLoongWu/JumpHelper)，由于只是一个初步的代码，还没有做各种适配，所以这里先不讲解代码了，思路都在上面提到了。等到适配工作基本稳定后在优化代码并分析。

@@ -10,7 +10,9 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cooloongwu.jumphelper.MyApplication;
 import com.cooloongwu.jumphelper.R;
@@ -28,7 +30,7 @@ import java.io.File;
 
 public class AutoFloatView extends LinearLayout implements View.OnClickListener {
 
-    private boolean isStop = false;
+    private boolean isJumping = false;
     private View btnAuto;
 
     public AutoFloatView(Context context) {
@@ -43,6 +45,9 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
     protected void onFinishInflate() {
         super.onFinishInflate();
         btnAuto = findViewById(R.id.btn_auto);
+
+        Button btnClose = findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(this);
         btnAuto.setOnClickListener(this);
     }
 
@@ -50,13 +55,21 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_auto:
-                if (isStop) {
-                    detach();
+                if (isJumping) {
+                    isJumping = false;
+                    btnAuto.setBackground(ContextCompat.getDrawable(this.getContext(), R.mipmap.btn_jump_normal));
                 } else {
+                    isJumping = true;
                     btnAuto.setBackground(ContextCompat.getDrawable(this.getContext(), R.mipmap.btn_stop));
-                    isStop = true;
                     new FindAndJump().execute();
                 }
+                break;
+            case R.id.btn_close:
+                if (isJumping) {
+                    Toast.makeText(this.getContext(), "请先结束自动跳动", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                detach();
                 break;
             default:
                 break;
@@ -67,7 +80,8 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         try {
             MyApplication.getInstance().detach(this);
             //关闭悬浮窗时强制退出App，为了结束自动跳的脚本
-            System.exit(0);
+//            if (isExit)
+//                System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,13 +120,14 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
                 int[] excepted = {currentPos[0] - 35, currentPos[0] + 35};
                 int[] nextPos = NextPosFinder.getNextPos(bitmap, excepted, currentPos[1]);
                 if (nextPos == null || nextPos[0] == 0) {
-                    System.err.println("find nextCenter, fail");
+                    Log.e("查找下一次中心", "失败");
                 } else {
                     int centerX, centerY;
                     int[] whitePoint = NextPosFinder.find(bitmap, nextPos[0] - 120, nextPos[1], nextPos[0] + 120, nextPos[1] + 180);
                     if (whitePoint != null) {
                         centerX = whitePoint[0];
                         centerY = whitePoint[1];
+                        Log.e("查找白色中心点", "成功：（" + centerX + ", " + centerY + "）");
                         System.out.println("find whitePoint, succ, (" + centerX + ", " + centerY + ")");
                     } else {
                         if (nextPos[2] != Integer.MAX_VALUE && nextPos[4] != Integer.MIN_VALUE) {
@@ -137,11 +152,13 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
             //查找到位置后开始跳
             OSUtils.getInstance().exec(Config.CMD_TOUCH_LONG.replaceAll("touchY", "200").replace("time", String.valueOf(time)));
             try {
-                Thread.sleep(4000);
+                Thread.sleep(time * 4);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            new FindAndJump().execute();
+
+            if (isJumping)
+                new FindAndJump().execute();
         }
     }
 }

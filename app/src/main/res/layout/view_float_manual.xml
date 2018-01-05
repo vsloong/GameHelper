@@ -7,52 +7,19 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="end"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:text="按需修改速度"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/edit_speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
-            android:text="0.485"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:background="#00000000"
-            android:text="关闭悬浮窗" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
         android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/selector_btn_close" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:gravity="end|center_vertical"
         android:orientation="horizontal">
 
@@ -70,8 +37,6 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/selector_btn" />
-
-
     </LinearLayout>
 
 

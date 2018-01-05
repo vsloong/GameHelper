@@ -21,7 +21,7 @@ public class MyApplication extends Application {
     private static MyApplication myApplication;
 
     //各屏幕速度配置（单位：px/ms）
-    private final double SPEED_720P = 0.4851;
+    private final double SPEED_720P = 0.485;
     private final double SPEED_1080P = 0.7179;
     private final double SPEED_2K = 1.7114;
 

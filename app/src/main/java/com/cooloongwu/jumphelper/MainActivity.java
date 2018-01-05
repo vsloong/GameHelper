@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ManualFloatView manualFloatView;
     private AutoFloatView autoFloatView;
-    private RadioGroup radioGroup;
+    private RadioButton radioAuto;
+    private RadioButton radioManual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editSpeed = findViewById(R.id.edit_speed);
         btnAttach = findViewById(R.id.btn_attach);
         Button btnModify = findViewById(R.id.btn_modify);
-        radioGroup = findViewById(R.id.radio_group);
+        RadioGroup radioGroup = findViewById(R.id.radio_group);
+        radioAuto = findViewById(R.id.radio_auto);
+        radioManual = findViewById(R.id.radio_manual);
 
         radioGroup.setOnCheckedChangeListener(this);
         btnAttach.setOnClickListener(this);
@@ -77,17 +80,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_attach:
-                Log.e("没有选择", "" + radioGroup.getCheckedRadioButtonId());
-                if (radioGroup.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(this, "请选择手动或自动模式", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (radioGroup.getCheckedRadioButtonId() == R.id.radio_auto) {
+                if (radioAuto.isChecked()) {
                     MyApplication.getInstance().attach(autoFloatView);
-                } else {
+                    goHome();
+                } else if (radioManual.isChecked()) {
                     MyApplication.getInstance().attach(manualFloatView);
+                    goHome();
+                } else {
+                    Toast.makeText(this, "请选择手动或自动模式", Toast.LENGTH_SHORT).show();
                 }
-                goHome();
                 break;
             case R.id.btn_modify:
                 String str = editSpeed.getText().toString().trim();
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     double speed = Double.parseDouble(str);
                     if (speed > 0) {
                         MyApplication.getInstance().setSpeed(speed);
-                        Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "修改速度成功", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
