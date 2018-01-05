@@ -25,7 +25,7 @@ import com.cooloongwu.jumphelper.utils.OSUtils;
 import java.io.File;
 
 /**
- * 悬浮窗，自动跳的悬浮窗
+ * 悬浮窗，自动寻找位置跳动的悬浮窗
  * Created by CooLoongWu on 2018-1-4 10:34.
  */
 

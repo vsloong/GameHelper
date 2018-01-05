@@ -4,27 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cooloongwu.jumphelper.utils.OSUtils;
 import com.cooloongwu.jumphelper.view.AutoFloatView;
-import com.cooloongwu.jumphelper.view.FloatView;
+import com.cooloongwu.jumphelper.view.ManualFloatView;
 
 import ezy.assist.compat.SettingsCompat;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private TextView textMsg;
     private Button btnAttach;
     private EditText editSpeed;
 
-    private FloatView floatView;
+    private ManualFloatView manualFloatView;
     private AutoFloatView autoFloatView;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViews() {
-        floatView = (FloatView) getLayoutInflater().inflate(R.layout.view_float, null);
+        manualFloatView = (ManualFloatView) getLayoutInflater().inflate(R.layout.view_float_manual, null);
         autoFloatView = (AutoFloatView) getLayoutInflater().inflate(R.layout.view_float_auto, null);
 
         textMsg = findViewById(R.id.text_msg);
         editSpeed = findViewById(R.id.edit_speed);
         btnAttach = findViewById(R.id.btn_attach);
         Button btnModify = findViewById(R.id.btn_modify);
+        radioGroup = findViewById(R.id.radio_group);
+
+        radioGroup.setOnCheckedChangeListener(this);
         btnAttach.setOnClickListener(this);
         btnModify.setOnClickListener(this);
     }
@@ -71,10 +77,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_attach:
-//                floatView.initWindowManager();
-//                floatView.attach();
-                autoFloatView.initWindowManager();
-                autoFloatView.attach();
+                Log.e("没有选择", "" + radioGroup.getCheckedRadioButtonId());
+                if (radioGroup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(this, "请选择手动或自动模式", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (radioGroup.getCheckedRadioButtonId() == R.id.radio_auto) {
+                    autoFloatView.initWindowManager();
+                    autoFloatView.attach();
+                } else {
+                    manualFloatView.initWindowManager();
+                    manualFloatView.attach();
+                }
                 goHome();
                 break;
             case R.id.btn_modify:
@@ -82,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (!TextUtils.isEmpty(str)) {
                     float speed = Float.parseFloat(str);
                     if (speed > 0) {
-                        floatView.setSpeed(speed);
+                        //manualFloatView.setSpeed(speed);
                         Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -115,5 +129,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.radio_auto:
+                if (null == autoFloatView)
+                    autoFloatView = (AutoFloatView) getLayoutInflater().inflate(R.layout.view_float_auto, null);
+                break;
+            case R.id.radio_manual:
+                if (null == manualFloatView)
+                    manualFloatView = (ManualFloatView) getLayoutInflater().inflate(R.layout.view_float_manual, null);
+                break;
+            default:
+                break;
+        }
     }
 }

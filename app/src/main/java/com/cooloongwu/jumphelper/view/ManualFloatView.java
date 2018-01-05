@@ -1,10 +1,5 @@
 package com.cooloongwu.jumphelper.view;
 
-/**
- * 悬浮窗视图
- * Created by CooLongWu on 2017-12-30.
- */
-
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.support.v4.widget.ViewDragHelper;
@@ -21,7 +16,11 @@ import android.widget.TextView;
 import com.cooloongwu.jumphelper.R;
 import com.cooloongwu.jumphelper.utils.OSUtils;
 
-public class FloatView extends LinearLayout implements View.OnClickListener {
+/**
+ * 悬浮窗视图，需要手动操作选择距离的
+ * Created by CooLongWu on 2017-12-30.
+ */
+public class ManualFloatView extends LinearLayout implements View.OnClickListener {
 
     private View dragView;
     private View dragView2;
@@ -44,11 +43,11 @@ public class FloatView extends LinearLayout implements View.OnClickListener {
         this.speed = speed;
     }
 
-    public FloatView(Context context) {
+    public ManualFloatView(Context context) {
         super(context, null);
     }
 
-    public FloatView(Context context, AttributeSet attrs) {
+    public ManualFloatView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initDragHelper();
         //这里执行完后会去执行 onFinishInflate()
