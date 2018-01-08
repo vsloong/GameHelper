@@ -43,7 +43,7 @@ public class CurrPosFinder {
                 g = Color.green(pixelColor);
                 b = Color.blue(pixelColor);
 
-                if (match(r, g, b, R_TARGET, G_TARGET, B_TARGET, 16) && j > ret[1]) {
+                if (match(r, g, b, R_TARGET, G_TARGET, B_TARGET, 16)) {
                     maxX = Math.max(maxX, i);
                     minX = Math.min(minX, i);
                     maxY = Math.max(maxY, j);

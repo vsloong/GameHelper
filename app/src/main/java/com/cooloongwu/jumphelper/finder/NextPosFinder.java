@@ -17,7 +17,7 @@ public class NextPosFinder {
 
     private static final int TARGET = 245;
 
-    public static int[] getNextPos(Bitmap image, int[] exceptedX, int maxY) {
+    public static int[] getNextPos(Bitmap image, int[] currentPos) {
         if (image == null) {
             return null;
         }
@@ -57,9 +57,11 @@ public class NextPosFinder {
         int[] ret = new int[6];
         int targetR = 0, targetG = 0, targetB = 0;
         boolean found = false;
-        for (int j = height / 4; j < maxY; j++) {
+        for (int j = height / 4; j < currentPos[1]; j++) {
             for (int i = 0; i < width; i++) {
-                if (i >= exceptedX[0] && i <= exceptedX[1]) {
+                int dx = Math.abs(i - currentPos[0]);
+                int dy = Math.abs(j - currentPos[1]);
+                if (dy > dx) {
                     continue;
                 }
                 pixel = image.getPixel(i, j);
@@ -87,6 +89,10 @@ public class NextPosFinder {
             }
         }
 
+        if (targetR == BottleFinder.TARGET && targetG == BottleFinder.TARGET && targetB == BottleFinder.TARGET) {
+            return BottleFinder.find(image, ret[0], ret[1]);
+        }
+
         boolean[][] matchMap = new boolean[width][height];
         boolean[][] vMap = new boolean[width][height];
         ret[2] = Integer.MAX_VALUE;
@@ -100,17 +106,15 @@ public class NextPosFinder {
             int[] item = queue.poll();
             int i = item[0];
             int j = item[1];
-            if (i >= exceptedX[0] && i <= exceptedX[1]) {
-                continue;
-            }
-            if (j >= maxY) {
+
+            if (j >= currentPos[1]) {
                 continue;
             }
 
-            if (i < Math.max(ret[0] - 200, 0) ||
-                    i >= Math.min(ret[0] + 200, width) ||
-                    j < Math.max(0, ret[1] - 300) ||
-                    j >= Math.max(height, ret[1] + 300) ||
+            if (i < Math.max(ret[0] - 300, 0) ||
+                    i >= Math.min(ret[0] + 300, width) ||
+                    j < Math.max(0, ret[1] - 400) ||
+                    j >= Math.max(height, ret[1] + 400) ||
                     vMap[i][j]) {
                 continue;
             }
@@ -138,6 +142,10 @@ public class NextPosFinder {
                     ret[4] = i;
                     ret[5] = j;
                 }
+                if (j < ret[1]) {
+                    ret[0] = i;
+                    ret[1] = j;
+                }
                 queue.add(buildArray(i - 1, j));
                 queue.add(buildArray(i + 1, j));
                 queue.add(buildArray(i, j - 1));
@@ -148,7 +156,7 @@ public class NextPosFinder {
         return ret;
     }
 
-    public static int[] find(Bitmap image, int x1, int y1, int x2, int y2) {
+    public static int[] findWhite(Bitmap image, int x1, int y1, int x2, int y2) {
         if (image == null) {
             return null;
         }

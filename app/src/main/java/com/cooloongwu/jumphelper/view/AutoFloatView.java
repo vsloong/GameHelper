@@ -110,7 +110,7 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
             OSUtils.getInstance().exec(Config.CMD_SCREEN_SHOT);
             //这里需要优化，Process.wait()
             try {
-                Thread.sleep(1111);
+                Thread.sleep(1233);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -118,13 +118,13 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
             Bitmap bitmap = getBitmap();
             if (bitmap != null) {
                 int[] currentPos = CurrPosFinder.getCurrentPos(bitmap);
-                int[] excepted = {currentPos[0] - 35, currentPos[0] + 35};
-                int[] nextPos = NextPosFinder.getNextPos(bitmap, excepted, currentPos[1]);
+                //int[] excepted = {currentPos[0] - 35, currentPos[0] + 35};
+                int[] nextPos = NextPosFinder.getNextPos(bitmap, currentPos);
                 if (nextPos == null || nextPos[0] == 0) {
                     Log.e("查找下一次中心", "失败");
                 } else {
                     int centerX, centerY;
-                    int[] whitePoint = NextPosFinder.find(bitmap, nextPos[0] - 120, nextPos[1], nextPos[0] + 120, nextPos[1] + 180);
+                    int[] whitePoint = NextPosFinder.findWhite(bitmap, nextPos[0] - 120, nextPos[1], nextPos[0] + 120, nextPos[1] + 180);
                     if (whitePoint != null) {
                         centerX = whitePoint[0];
                         centerY = whitePoint[1];

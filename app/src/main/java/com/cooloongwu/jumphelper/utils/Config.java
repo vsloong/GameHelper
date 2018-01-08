@@ -30,10 +30,10 @@ public class Config {
     }
 
     /**
-     * @return 获取[1, 200]之间随机的触摸区域
+     * @return 获取[100, 200]之间随机的触摸区域，小于100的话有一个分享按钮可能会被点击
      */
     private int getTouchX() {
-        return new Random().nextInt(200) + 1;
+        return new Random().nextInt(200) + 100;
     }
 
     /**
