@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cooloongwu.jumphelper.MyApplication;
 import com.cooloongwu.jumphelper.R;
+import com.cooloongwu.jumphelper.utils.Config;
 import com.cooloongwu.jumphelper.utils.OSUtils;
 
 /**
@@ -159,8 +160,7 @@ public class ManualFloatView extends LinearLayout implements View.OnClickListene
                 double dis = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2));
                 int time = (int) Math.round((dis / MyApplication.getInstance().getSpeed()));
                 ((TextView) text).setText("距离" + Math.round(dis) + ";约" + time + "ms");
-                int touchY = (int) (MyApplication.getInstance().getScreenHeight() * 0.9);
-                OSUtils.getInstance().exec("input swipe 200 " + touchY + " 300 " + touchY + " " + time);
+                OSUtils.getInstance().exec(Config.getInstance().touchCMD(time));
                 break;
             case R.id.btn_close:
                 detach();

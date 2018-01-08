@@ -151,7 +151,7 @@ public class AutoFloatView extends LinearLayout implements View.OnClickListener 
         protected void onPostExecute(Integer time) {
             //查找到位置后开始跳
             if (isJumping) {
-                OSUtils.getInstance().exec(Config.CMD_TOUCH_LONG.replaceAll("touchY", "200").replace("time", String.valueOf(time)));
+                OSUtils.getInstance().exec(Config.getInstance().touchCMD(time));
                 try {
                     //sleep 跳跃所用时间的5倍 应该够了吧，这样就微信就不会检测到固定时间了
                     Thread.sleep(time * 5 > 3333 ? (time * 5) : 3333);
