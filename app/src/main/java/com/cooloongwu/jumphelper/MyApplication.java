@@ -54,12 +54,6 @@ public class MyApplication extends Application {
         initWindowManager();
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        OSUtils.getInstance().closeAndDestroy();
-    }
-
     /**
      * 初始化悬浮窗
      */

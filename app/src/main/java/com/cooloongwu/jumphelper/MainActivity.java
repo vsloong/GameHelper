@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cooloongwu.jumphelper.utils.OSUtils;
 import com.cooloongwu.jumphelper.view.AutoFloatView;
 import com.cooloongwu.jumphelper.view.ManualFloatView;
 
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         findViews();
     }
@@ -90,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_modify:
+//                OSUtils.getInstance().exec("screencap -p /sdcard/AAA.png");
                 String str = editSpeed.getText().toString().trim();
                 if (!TextUtils.isEmpty(str)) {
                     double speed = Double.parseDouble(str);
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OSUtils.getInstance().closeAndDestroy();
     }
 
     /**

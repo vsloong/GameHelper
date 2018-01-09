@@ -2,9 +2,9 @@ package com.cooloongwu.jumphelper.utils;
 
 import android.util.Log;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * 工具类
@@ -16,7 +16,7 @@ public class OSUtils {
 
     private volatile static OSUtils osUtils;
     private static Process process;
-    private static OutputStream outputStream;
+    private static DataOutputStream dos;
 
     public static OSUtils getInstance() {
         if (osUtils == null) {
@@ -34,31 +34,26 @@ public class OSUtils {
     }
 
     private void initOS() {
-        if (outputStream == null) {
+        if (dos == null) {
             try {
+                //TODO 魅蓝5执行su没效果怎么，1月7号上午开始的，之前好好的！
                 process = Runtime.getRuntime().exec("su");
-                outputStream = process.getOutputStream();
-                Log.e("Process", "" + process.toString());
-            } catch (IOException e) {
+                dos = new DataOutputStream(process.getOutputStream());
+//                dos.writeBytes("chmod 777 " + MyApplication.getInstance().getPackageCodePath() + "\n");
+//                dos.flush();
+                Log.e("Process实例化", "" + process.toString());
+            } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("OutputStream", "打开OS失败");
             }
         }
     }
 
-    public OutputStream getOutputStream() {
-        return outputStream;
-    }
-
     public void exec(String cmd) {
         try {
-            outputStream.write((cmd + "\n").getBytes());
-            outputStream.flush();
-
-            //添加等待命令，确保命令执行完成
-//            outputStream.wait();
-//            process.waitFor();
-            Log.e("OutputStream", "执行命令成功");
+            dos.writeBytes(cmd + "\n");
+            dos.flush();
+            Log.e("OutputStream", "执行命令" + cmd + "成功");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("OutputStream", "执行命令失败");
@@ -67,14 +62,46 @@ public class OSUtils {
 
     public void closeAndDestroy() {
         try {
-            if (outputStream != null)
-                outputStream.close();
+            if (dos != null)
+                dos.close();
             if (process != null)
                 process.destroy();
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("OutputStream", "关闭OS失败");
         }
+    }
+
+    public static int execCmd(String cmd) {
+        int result = -1;
+        try {
+            Process process = Runtime.getRuntime().exec("su");
+            DataOutputStream dos = new DataOutputStream(process.getOutputStream());
+            dos.writeBytes(cmd + "\n");
+            dos.writeBytes("exit\n");
+            dos.flush();
+            dos.close();
+//            InputStream is = process.getErrorStream();//注意注意注意
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+//            StringBuilder res = new StringBuilder();
+//            String line;
+//            while ((line = bufferedReader.readLine()) != null) {
+//                res.append(line);
+//                System.out.print(line);
+//            }
+//            bufferedReader.close();
+//            is.close();
+//
+//            Log.e("不知道是啥", "" + res);
+//            int s = process.waitFor();
+            result = process.exitValue();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("命令执行失败", "" + e.getMessage());
+        }
+        Log.e("命令执行结果", "" + result);
+        return result;
     }
 
     /**
