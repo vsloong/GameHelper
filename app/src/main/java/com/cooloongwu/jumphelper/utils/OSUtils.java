@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * 工具类
@@ -17,6 +18,7 @@ public class OSUtils {
     private volatile static OSUtils osUtils;
     private static Process process;
     private static DataOutputStream dos;
+    private static OutputStream os;
 
     public static OSUtils getInstance() {
         if (osUtils == null) {
@@ -38,9 +40,8 @@ public class OSUtils {
             try {
                 //TODO 魅蓝5执行su没效果怎么，1月7号上午开始的，之前好好的！
                 process = Runtime.getRuntime().exec("su");
-                dos = new DataOutputStream(process.getOutputStream());
-//                dos.writeBytes("chmod 777 " + MyApplication.getInstance().getPackageCodePath() + "\n");
-//                dos.flush();
+                os = process.getOutputStream();
+//                dos = new DataOutputStream(process.getOutputStream());
                 Log.e("Process实例化", "" + process.toString());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -51,8 +52,10 @@ public class OSUtils {
 
     public void exec(String cmd) {
         try {
-            dos.writeBytes(cmd + "\n");
-            dos.flush();
+            os.write((cmd + " \n").getBytes());
+            os.flush();
+//            dos.writeBytes(cmd + "\n");
+//            dos.flush();
             Log.e("OutputStream", "执行命令" + cmd + "成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,8 +65,8 @@ public class OSUtils {
 
     public void closeAndDestroy() {
         try {
-            if (dos != null)
-                dos.close();
+            if (os != null)
+                os.close();
             if (process != null)
                 process.destroy();
         } catch (IOException e) {
