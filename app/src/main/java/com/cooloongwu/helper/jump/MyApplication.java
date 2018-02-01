@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper;
+package com.cooloongwu.helper.jump;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.cooloongwu.jumphelper.utils.OSUtils;
-import com.cooloongwu.jumphelper.view.ManualFloatView;
+import com.cooloongwu.helper.jump.utils.OSUtils;
+import com.cooloongwu.helper.jump.view.ManualFloatView;
 
 /**
  * 自定义Application，来实现简单临时的数据缓存

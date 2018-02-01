@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper.view;
+package com.cooloongwu.helper.jump.view;
 
 import android.content.Context;
 import android.support.v4.widget.ViewDragHelper;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cooloongwu.jumphelper.MyApplication;
-import com.cooloongwu.jumphelper.R;
-import com.cooloongwu.jumphelper.utils.Config;
-import com.cooloongwu.jumphelper.utils.OSUtils;
+import com.cooloongwu.helper.jump.MyApplication;
+import com.cooloongwu.helper.R;
+import com.cooloongwu.helper.jump.utils.Config;
+import com.cooloongwu.helper.jump.utils.OSUtils;
 
 /**
  * 悬浮窗视图，需要手动操作选择距离的

@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper;
+package com.cooloongwu.helper;
 
 import org.junit.Test;
 

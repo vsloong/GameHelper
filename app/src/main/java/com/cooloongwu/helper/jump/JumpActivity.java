@@ -1,10 +1,9 @@
-package com.cooloongwu.jumphelper;
+package com.cooloongwu.helper.jump;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +12,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cooloongwu.jumphelper.view.AutoFloatView;
-import com.cooloongwu.jumphelper.view.ManualFloatView;
+import com.cooloongwu.helper.R;
+import com.cooloongwu.helper.jump.view.AutoFloatView;
+import com.cooloongwu.helper.jump.view.ManualFloatView;
 
 import ezy.assist.compat.SettingsCompat;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class JumpActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private TextView textMsg;
     private Button btnAttach;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_jump);
 
         findViews();
     }
@@ -103,22 +103,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     /**
      * 监听返回按键【当点击返回键时执行Home键效果】
      */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            goHome();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            goHome();
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     private void goHome() {
         Intent intent = new Intent(Intent.ACTION_MAIN);

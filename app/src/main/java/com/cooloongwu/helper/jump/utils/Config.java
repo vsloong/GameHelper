@@ -1,9 +1,9 @@
-package com.cooloongwu.jumphelper.utils;
+package com.cooloongwu.helper.jump.utils;
 
 import android.os.Environment;
 import android.util.Log;
 
-import com.cooloongwu.jumphelper.MyApplication;
+import com.cooloongwu.helper.jump.MyApplication;
 
 import java.io.File;
 import java.util.Random;

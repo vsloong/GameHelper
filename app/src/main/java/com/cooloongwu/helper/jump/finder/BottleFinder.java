@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper.finder;
+package com.cooloongwu.helper.jump.finder;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.cooloongwu.jumphelper;
+package com.cooloongwu.helper;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
