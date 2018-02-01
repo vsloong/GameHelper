@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">跳一跳助手</string>
+
+    <string name="clover">三叶草</string>
+    <string name="tickets">抽奖券</string>
+    <string name="date_time">时间点</string>
+    <string name="save">保存</string>
+    <string name="advance">提前</string>
+    <string name="number">%1$d</string>
+    <string name="calendar">%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS</string>
+    <string name="success_msg">修改成功</string>
+    <string name="failure_msg">修改失败</string>
+    <string name="number_err_msg">请填写正确的数值</string>
+    <string name="archive_pick">选择存档文件</string>
+    <string name="export_albums">导出明信片</string>
+    <string name="no_albums_export">没有待导出的明信片</string>
+    <string name="export_albums_msg">成功导出 %1$d 张明信片</string>
+    <string name="archive_not_found">存档文件不存在</string>
+    <string name="archive_permission_denied">无法访问存档文件</string>
+    <string name="progress_tips">%1$s / %2$d of %3$d</string>
 </resources>

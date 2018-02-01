@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cooloongwu.helper.frog.FrogActivity;
 import com.cooloongwu.helper.jump.JumpActivity;
@@ -49,6 +50,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (position == 1) {
+                    Toast.makeText(holder.itemView.getContext(), "暂未开放", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent();
                 intent.setClass(holder.itemView.getContext(), clas[position]);
                 holder.itemView.getContext().startActivity(intent);

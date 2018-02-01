@@ -26,5 +26,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.github.czy1121:settingscompat:1.1.4'
+    implementation('com.leon:lfilepickerlibrary:1.7.0') {
+        transitive = false
+    }
     implementation 'com.android.support:recyclerview-v7:27.0.2'
 }
