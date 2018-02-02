@@ -6,8 +6,8 @@ android {
         applicationId "com.cooloongwu.jumphelper"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 23
-        versionName "0.2.3"
+        versionCode 33
+        versionName "0.3.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

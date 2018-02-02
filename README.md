@@ -1,8 +1,8 @@
 # 微信跳一跳App助手
-[请点击这里](JumpHelper/app/src/main/java/com/cooloongwu/helper/jump/README.md)
+[请点击这里](/app/src/main/java/com/cooloongwu/helper/jump/README.md)
 
 # 旅行青蛙
-[请点击这里](JumpHelper/app/src/main/java/com/cooloongwu/helper/frog/README.md)
+[请点击这里](/app/src/main/java/com/cooloongwu/helper/frog/README.md)
 
 
 # *App下载地址*
