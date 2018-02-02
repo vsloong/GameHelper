@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.cooloongwu.helper.jump.utils.OSUtils;
 import com.cooloongwu.helper.jump.view.ManualFloatView;
 
 /**
@@ -43,7 +42,7 @@ public class MyApplication extends Application {
         myApplication = this;
 
         //获取Root权限，提前获取下否者执行的时候在获取会有3秒多的延迟
-        OSUtils.getInstance();
+        //OSUtils.getInstance();
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         setScreenHeight(displayMetrics.heightPixels);

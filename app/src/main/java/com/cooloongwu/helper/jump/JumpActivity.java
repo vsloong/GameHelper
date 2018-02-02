@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cooloongwu.helper.R;
+import com.cooloongwu.helper.jump.utils.OSUtils;
 import com.cooloongwu.helper.jump.view.AutoFloatView;
 import com.cooloongwu.helper.jump.view.ManualFloatView;
 
@@ -34,6 +35,7 @@ public class JumpActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jump);
 
+        OSUtils.getInstance();
         findViews();
     }
 
