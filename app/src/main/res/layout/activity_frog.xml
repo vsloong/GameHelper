@@ -6,50 +6,96 @@
     android:layout_height="match_parent"
     tools:context="com.cooloongwu.helper.frog.FrogActivity">
 
-    <LinearLayout
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:stretchColumns="1"
+        tools:context="com.aa65535.tabikaeruarchivemodifier.MainActivity">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TableRow>
 
-            <Button
-                android:id="@+id/btn_clover"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="修改" />
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:text="@string/clover" />
 
             <EditText
-                android:id="@+id/edit_clover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/btn_clover"
-                android:inputType="number" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/btn_tickets"
+                android:id="@+id/et_clover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="修改" />
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:inputType="numberDecimal"
+                android:maxLength="9"
+                tools:text="999999999" />
+
+            <Button
+                android:id="@+id/save_clover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/save" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:text="@string/tickets" />
 
             <EditText
-                android:id="@+id/edit_tickets"
-                android:layout_width="match_parent"
+                android:id="@+id/et_tickets"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/btn_tickets"
-                android:inputType="number" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:inputType="numberDecimal"
+                android:maxLength="3"
+                tools:text="999999999" />
+
+            <Button
+                android:id="@+id/save_tickets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/save" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:text="@string/date_time" />
+
+            <EditText
+                android:id="@+id/et_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:enabled="false"
+                android:inputType="datetime"
+                tools:text="2018-1-28 19:7:20" />
+
+            <Button
+                android:id="@+id/advance_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/advance" />
+
+        </TableRow>
+
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
