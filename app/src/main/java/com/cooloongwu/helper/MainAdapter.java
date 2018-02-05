@@ -18,7 +18,7 @@ import com.cooloongwu.helper.jump.JumpActivity;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private final static int[] ic = {
-            R.mipmap.ic_launcher,
+            R.mipmap.ic_jump,
             R.mipmap.ic_frog
     };
     private final static String[] name = {
