@@ -22,8 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".frog.FrogActivity" />
-        <activity android:name=".jump.JumpActivity" />
+        <activity
+            android:name=".frog.FrogActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".jump.JumpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

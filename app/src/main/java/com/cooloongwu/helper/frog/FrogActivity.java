@@ -13,10 +13,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -63,14 +62,29 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frog);
+
+        initToolbar();
+
         File cacheDir = getExternalCacheDir();
         if (cacheDir == null) {
             show("shared storage is not currently available.");
             throw new RuntimeException("shared storage is not currently available.");
         }
         dataDir = cacheDir.getParentFile().getParentFile();
+        //存档文件路径，1.0.4叫Tabikaeru.sav，之前的版本存档叫GameData.sav
         archive = new File(dataDir, "jp.co.hit_point.tabikaeru/files/Tabikaeru.sav");
+
         initView();
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -128,7 +142,8 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
                 show(getString(R.string.archive_permission_denied));
             }
         } else {
-            pickArchive();
+            show(getString(R.string.archive_not_found));
+//            pickArchive();
         }
     }
 
@@ -209,12 +224,12 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_activity_actions, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.main_activity_actions, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

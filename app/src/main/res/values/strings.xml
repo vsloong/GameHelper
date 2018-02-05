@@ -15,7 +15,7 @@
     <string name="export_albums">导出明信片</string>
     <string name="no_albums_export">没有待导出的明信片</string>
     <string name="export_albums_msg">成功导出 %1$d 张明信片</string>
-    <string name="archive_not_found">存档文件不存在</string>
+    <string name="archive_not_found">存档文件不存在、请更新旅行青蛙</string>
     <string name="archive_permission_denied">无法访问存档文件</string>
     <string name="progress_tips">%1$s / %2$d of %3$d</string>
 </resources>

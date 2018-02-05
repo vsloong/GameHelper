@@ -19,6 +19,9 @@ public class Util {
         RandomAccessFile r = null;
         try {
             r = new RandomAccessFile(archive, "rwd");
+            //默认情况下ras的指针为0，即从第1个字节读写到
+            //ras.seek(1);//表示将ras的指针设置到8，则读写ras是从第9个字节读写到
+
             r.seek(offset);
             r.writeInt(value);
             return true;
