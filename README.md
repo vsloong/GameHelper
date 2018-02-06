@@ -9,5 +9,5 @@
 
 # *App下载地址*
 
-在apk文件夹下看到了没，里面有jumphelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。  
-[或者直接点这里下载（0.3.3）](https://raw.githubusercontent.com/CooLoongWu/JumpHelper/master/apk/jumphelper_alpha_0.3.3.apk)
+在apk文件夹下看到了没，里面有gamehelper_alpha_xxx.apk类型的文件，下载版本号最大的就好了。  
+[或者直接点这里下载（0.3.5）](https://raw.githubusercontent.com/CooLoongWu/GameHelper/master/apk/gamehelper_alpha_0.3.5.apk)
