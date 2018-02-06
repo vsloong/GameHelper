@@ -2,6 +2,7 @@ package com.cooloongwu.helper.jump;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -13,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.cooloongwu.helper.R;
 import com.cooloongwu.helper.jump.utils.OSUtils;
 import com.cooloongwu.helper.jump.view.AutoFloatView;
@@ -37,8 +40,33 @@ public class JumpActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_jump);
         initToolbar();
 
-        OSUtils.getInstance();
         findViews();
+
+        showDialog();
+    }
+
+    private void showDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.dialog_title)
+                .content(R.string.dialog_content_jump)
+                .positiveText(R.string.dialog_btn_positive)
+                .negativeText(R.string.dialog_btn_negative)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        //确认之后请求Root权限
+                        OSUtils.getInstance();
+                        SettingsCompat.manageDrawOverlays(JumpActivity.this);
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        //否则关闭当前功能
+                        JumpActivity.this.finish();
+                    }
+                })
+                .show();
     }
 
     private void initToolbar() {
@@ -82,7 +110,6 @@ public class JumpActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         } else {
             textMsg.setText("请在设置中为该应用开启悬浮窗权限");
-            SettingsCompat.manageDrawOverlays(this);
             return false;
         }
     }
@@ -128,7 +155,6 @@ public class JumpActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //        return super.onKeyDown(keyCode, event);
 //    }
-
     private void goHome() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

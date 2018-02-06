@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.cooloongwu.helper.R;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
@@ -64,6 +65,7 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_frog);
 
         initToolbar();
+        showDialog();
 
         File cacheDir = getExternalCacheDir();
         if (cacheDir == null) {
@@ -85,6 +87,14 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
             }
         });
+    }
+
+    private void showDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.dialog_title)
+                .content(R.string.dialog_content_frog)
+                .positiveText(R.string.dialog_btn_positive)
+                .show();
     }
 
     @Override

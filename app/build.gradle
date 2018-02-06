@@ -32,4 +32,6 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     implementation 'com.android.support:support-v4:27.0.2'
     implementation 'com.android.support:design:27.0.2'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
 }

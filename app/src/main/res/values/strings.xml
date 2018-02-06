@@ -18,4 +18,20 @@
     <string name="archive_not_found">存档文件不存在、请更新旅行青蛙</string>
     <string name="archive_permission_denied">无法访问存档文件</string>
     <string name="progress_tips">%1$s / %2$d of %3$d</string>
+
+
+    <string name="dialog_title">敬告</string>
+    <string name="dialog_content_jump">
+        \n● 使用该辅助器手机需要Root权限以及悬浮窗权限
+        \n● 如果不知道什么是Root则不建议使用该修改功能
+        \n● 如果出现跳跃位置不准确请自行调整速度参数
+        \n● 点击“我知道了”按钮会向您申请Root权限以及悬浮窗权限
+        \n● 点击“我不干了”按钮会退出跳一跳辅助功能
+    </string>
+    <string name="dialog_content_frog">
+        \n● 当前适配“旅行青蛙”版本为1.0.4，如果修改失败，请下载1.0.4版本
+        \n● 修改数量前请将“旅行青蛙”后台杀掉
+    </string>
+    <string name="dialog_btn_positive">我知道了</string>
+    <string name="dialog_btn_negative">我不干了</string>
 </resources>
