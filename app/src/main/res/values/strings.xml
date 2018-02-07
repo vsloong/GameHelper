@@ -32,6 +32,7 @@
         \n● 当前适配“旅行青蛙”版本为1.0.4，如果修改失败，请下载1.0.4版本
         \n● 修改数量前请将“旅行青蛙”后台杀掉
         \n● 支持修改三叶草最大数量9个9，支持修改奖券最大数量3个9
+        \n● 明信片导出位置在你手机存储的 DCIM 下“旅行青蛙明信片”文件夹内
     </string>
     <string name="dialog_btn_positive">我知道了</string>
     <string name="dialog_btn_negative">我不干了</string>

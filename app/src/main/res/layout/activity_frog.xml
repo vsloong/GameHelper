@@ -121,6 +121,13 @@
 
         </TableLayout>
 
+        <Button
+            android:id="@+id/btn_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="导出明信片" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

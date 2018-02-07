@@ -125,7 +125,9 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
         ticketsButton = findViewById(R.id.save_tickets);
 
         Button advance_date = findViewById(R.id.advance_date);
+        Button btn_export = findViewById(R.id.btn_export);
         advance_date.setOnClickListener(this);
+        btn_export.setOnClickListener(this);
         cloverButton.setOnClickListener(this);
         ticketsButton.setOnClickListener(this);
         cloverInput.addTextChangedListener(new MyTextWatcher(cloverButton));
@@ -160,7 +162,7 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
     private AlbumsExporter initAlbumsExporter() {
         File picture = new File(archive.getParentFile(), "Picture");
         File filesDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "Tabikaeru");
+                Environment.DIRECTORY_DCIM), "旅行青蛙明信片");
 
         return new AlbumsExporter(picture, filesDir).setProgressListener(
                 new AlbumsExporter.ProgressListener() {
@@ -265,6 +267,11 @@ public class FrogActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.save_tickets:
                 writeInt(v, ticketsInput, OFFSET_TICKETS);
+                break;
+            case R.id.btn_export:
+                if (exporter != null) {
+                    exporter.export();
+                }
                 break;
             case R.id.advance_date:
                 calendar.add(Calendar.HOUR_OF_DAY, -3);
