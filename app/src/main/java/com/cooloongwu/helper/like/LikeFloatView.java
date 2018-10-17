@@ -17,6 +17,9 @@ import com.cooloongwu.helper.jump.utils.OSUtils;
  */
 public class LikeFloatView extends LinearLayout implements View.OnClickListener {
 
+    private Handler handler;
+    private Runnable runnable;
+
     public LikeFloatView(Context context) {
         super(context, null);
     }
@@ -55,13 +58,13 @@ public class LikeFloatView extends LinearLayout implements View.OnClickListener 
 
 
     private void autoLike() {
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 OSUtils.getInstance()
                         .exec(Config.getInstance().tapLike());
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 200);
             }
         };
         handler.post(runnable);
@@ -73,6 +76,9 @@ public class LikeFloatView extends LinearLayout implements View.OnClickListener 
     public void detach() {
         try {
             MyApplication.getInstance().detach(this);
+            if (handler != null && runnable != null) {
+                handler.removeCallbacks(runnable);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

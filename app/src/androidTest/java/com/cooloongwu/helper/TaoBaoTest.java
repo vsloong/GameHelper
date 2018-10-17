@@ -3,7 +3,6 @@ package com.cooloongwu.helper;
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 
 import org.junit.Before;
@@ -30,14 +29,15 @@ public class TaoBaoTest {
 
     @Test
     public void test() throws InterruptedException {
-
         //点击喜欢按钮
         //按钮范围[618,1179][696,1257]
         while (true) {
-            uiDevice.findObject(By.res(
-                    "com.taobao.taobao:id/taolive_favor_icon_config"))
-                    .click();
-            Thread.sleep(200);
+            uiDevice.click(620, 1200);
+            Thread.sleep(100);
+            uiDevice.click(622, 1202);
+//            uiDevice.findObject(By.res(
+//                    "com.taobao.taobao:id/taolive_favor_icon_config"))
+//                    .click();
         }
 
     }
