@@ -93,7 +93,7 @@ public class MyApplication extends Application {
                 setWindowParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                        Gravity.END | Gravity.BOTTOM);
+                        Gravity.TOP | Gravity.START);
             }
             windowManager.addView(floatView, params);
         }

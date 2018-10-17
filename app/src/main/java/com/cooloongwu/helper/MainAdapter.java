@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cooloongwu.helper.frog.FrogActivity;
 import com.cooloongwu.helper.jump.JumpActivity;
+import com.cooloongwu.helper.like.LikeActivity;
 
 /**
  * Created by CooLoongWu on 2018-2-1 13:43.
@@ -19,16 +20,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private final static int[] ic = {
             R.mipmap.ic_jump,
+            R.mipmap.ic_frog,
             R.mipmap.ic_frog
     };
     private final static String[] name = {
             "跳一跳",
-            "旅行青蛙"
+            "旅行青蛙",
+            "淘宝点赞",
     };
 
     private final static Class[] clas = {
             JumpActivity.class,
-            FrogActivity.class
+            FrogActivity.class,
+            LikeActivity.class,
     };
 
     @Override

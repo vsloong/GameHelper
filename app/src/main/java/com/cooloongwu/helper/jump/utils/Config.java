@@ -50,4 +50,11 @@ public class Config {
         Log.e("CMD", cmd);
         return cmd;
     }
+
+    public String tapLike() {
+//        String CMD_TAP= "input swipe 500 500 500 600 1000";
+        String CMD_TAP= "input tap 648 1231";
+        Log.e("CMD", CMD_TAP);
+        return CMD_TAP;
+    }
 }

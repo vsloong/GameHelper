@@ -40,7 +40,8 @@ public class ManualFloatView extends LinearLayout implements View.OnClickListene
 
     private void initDragHelper() {
         setOrientation(VERTICAL);
-        dragHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
+        dragHelper = ViewDragHelper.create(this,
+                1.0f, new ViewDragHelper.Callback() {
             @Override
             public boolean tryCaptureView(View child, int pointerId) {
                 return child == dragView || child == dragView2;
