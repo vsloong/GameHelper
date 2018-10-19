@@ -4,7 +4,8 @@
     package="com.cooloongwu.helper">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,7 +17,7 @@
         android:label="@string/my_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,15 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".frog.FrogActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".jump.JumpActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".like.LikeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".frog.FrogActivity" />
+        <activity android:name=".jump.JumpActivity" />
+        <activity android:name=".like.LikeActivity" />
     </application>
 
 </manifest>

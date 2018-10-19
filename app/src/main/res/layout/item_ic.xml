@@ -1,24 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:layout_height="100dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="25dp"
+    android:background="@drawable/main_item_bg"
     android:gravity="center"
-    android:background="#40000000"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/img_ic"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:src="@mipmap/ic_frog" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="旅行青蛙"
-        android:textColor="#333333"
-        android:textSize="16sp" />
-</LinearLayout>
+        android:textColor="#ec1a58"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/img_ic"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="旅行青蛙" />
+
+    <TextView
+        android:id="@+id/text_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机需已获取root权限，否则无法使用"
+        android:textColor="#eeeff2"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/img_time"
+        app:layout_constraintStart_toStartOf="@id/text_name"
+        app:layout_constraintTop_toBottomOf="@id/text_name" />
+
+    <ImageView
+        android:id="@+id/img_time"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_name"
+        app:layout_constraintTop_toBottomOf="@id/text_content"
+        app:srcCompat="@drawable/ic_time_24" />
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="2018-10-10"
+        android:textColor="#5668bd"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/img_time"
+        app:layout_constraintStart_toEndOf="@id/img_time"
+        app:layout_constraintTop_toTopOf="@id/img_time" />
+</android.support.constraint.ConstraintLayout>

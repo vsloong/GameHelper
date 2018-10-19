@@ -12,28 +12,30 @@ import com.cooloongwu.helper.frog.FrogActivity;
 import com.cooloongwu.helper.jump.JumpActivity;
 import com.cooloongwu.helper.like.LikeActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by CooLoongWu on 2018-2-1 13:43.
  */
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
-    private final static int[] ic = {
-            R.mipmap.ic_jump,
-            R.mipmap.ic_frog,
-            R.mipmap.ic_frog
-    };
-    private final static String[] name = {
-            "跳一跳",
-            "旅行青蛙",
-            "淘宝点赞",
-    };
+    private List<MainBean> beans = new ArrayList<>();
 
-    private final static Class[] clas = {
-            JumpActivity.class,
-            FrogActivity.class,
-            LikeActivity.class,
-    };
+    public MainAdapter() {
+        MainBean mainBean1 = new MainBean("跳一跳",
+                "手机需已获取root权限，否则无法使用", "2018-01-03", JumpActivity.class);
+        beans.add(mainBean1);
+
+        MainBean mainBean2 = new MainBean("旅行青蛙",
+                "手机需已获取root权限，否则无法使用", "2018-02-01", FrogActivity.class);
+        beans.add(mainBean2);
+
+        MainBean mainBean3 = new MainBean("淘宝点赞",
+                "手机需已获取root权限，否则无法使用", "2018-10-17", LikeActivity.class);
+        beans.add(mainBean3);
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,8 +49,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.ic.setImageResource(ic[position]);
-        holder.name.setText(name[position]);
+
+        holder.name.setText(beans.get(position).getTitle());
+        holder.content.setText(beans.get(position).getContent());
+        holder.time.setText(beans.get(position).getTime());
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +63,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 //                    return;
 //                }
                 Intent intent = new Intent();
-                intent.setClass(holder.itemView.getContext(), clas[position]);
+                intent.setClass(holder.itemView.getContext(), beans.get(position).getClazz());
                 holder.itemView.getContext().startActivity(intent);
             }
         });
@@ -66,18 +71,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return name.length;
+        return beans.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ic;
         TextView name;
+        TextView content;
+        TextView time;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ic = itemView.findViewById(R.id.img_ic);
             name = itemView.findViewById(R.id.text_name);
+            content = itemView.findViewById(R.id.text_content);
+            time = itemView.findViewById(R.id.text_time);
         }
     }
 
